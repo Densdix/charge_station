@@ -24,7 +24,7 @@ class _ChargeStationState extends State<ChargeStation> {
             child: CustomScrollView(
               controller: _scrollController,
               slivers: <Widget>[
-                StationAppbar(title),
+                StationAppbar(title, _scrollController),
                 SliverList(
                   delegate: SliverChildListDelegate(
                     <Widget>[
@@ -45,26 +45,6 @@ class _ChargeStationState extends State<ChargeStation> {
   @override
   void initState() {
     _scrollController = ScrollController();
-    _scrollController.addListener(_scrollListener);
     super.initState();
   }
-
-  bool get _isBarExpanded {
-    return _scrollController.hasClients && (_scrollController.offset > 100);
-  }
-
-  void _scrollListener(){
-    debugPrint(_scrollController.offset.toString());
-    if(_isBarExpanded){
-      setState(() {
-        title = "Expanded";
-      });
-    }
-    else
-      {
-        title = "Not Expanded";
-      }
-  }
-
-
 }
