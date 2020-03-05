@@ -17,11 +17,11 @@ class _StationAppbarState extends State<StationAppbar>{
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-        title: widget.scrollController.offset > 180 ? Text(widget.title) : Text(''),
+        title: mOffset > 180 ? Text(widget.title) : Text(''),
         leading: Container(
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: Colors.black.withOpacity(changeOpacity()),
+            color: Colors.black.withOpacity(updateOpacity()),
           ),
           child: IconButton(
             icon: Icon(Icons.arrow_back),
@@ -33,10 +33,10 @@ class _StationAppbarState extends State<StationAppbar>{
           Container(
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: Colors.black.withOpacity(changeOpacity()),
+              color: Colors.black.withOpacity(updateOpacity()),
             ),
             child: IconButton(
-              icon: widget.scrollController.offset > 180
+              icon: mOffset > 180
                   ? Icon(Icons.favorite)
                   : Icon(Icons.favorite_border),
               onPressed: (){},
@@ -55,6 +55,8 @@ class _StationAppbarState extends State<StationAppbar>{
         )
     );
   }
+
+
 
 
   @override
@@ -80,18 +82,22 @@ class _StationAppbarState extends State<StationAppbar>{
       });
   }
 
-  double changeOpacity(){
-    double currentOffset = widget.scrollController.offset;
-    double outputOpacity = (0.5 - (currentOffset * 0.003));
-    debugPrint("outputOpacity"+ outputOpacity.toString());
+  double updateOpacity(){
+    double outputOpacity = (0.5 - (mOffset * 0.003));
+
     if(outputOpacity <= 0.99 && outputOpacity >= 0.01){
+      //debugPrint("outputOpacity1 "+ outputOpacity.toString());
       return outputOpacity;
+
     }
     else{
       outputOpacity = 0.0;
+      //("outputOpacity2 "+ outputOpacity.toString());
       return outputOpacity;
     }
   }
+
+  double get mOffset => widget.scrollController.offset;
 
 
 }
